@@ -25,7 +25,7 @@ if(categoryGrid){
 var applianceCard=categoryGrid.querySelector('.card[href="home-appliances/"]'),airconCard=categoryGrid.querySelector('.card[href="aircon/"]'),purifierCard=categoryGrid.querySelector('.card[href="air-purifier/"]');
 if(applianceCard&&airconCard&&purifierCard){
 var tile=d.createElement('article'),imageLink=d.createElement('a'),title=d.createElement('h3'),titleLink=d.createElement('a'),description=d.createElement('p'),links=d.createElement('div');
-tile.className='card';title.textContent='Home Appliances';description.textContent='Fridges, washing machines, aircon and air purifiers.';
+tile.className='card';description.textContent='Fridges, washing machines, aircon and air purifiers.';
 imageLink.href='home-appliances/';imageLink.setAttribute('aria-label','View Home Appliances');imageLink.appendChild(applianceCard.querySelector('figure'));
 titleLink.href='home-appliances/';titleLink.textContent='Home Appliances';title.appendChild(titleLink);
 links.className='category-sub-links';
