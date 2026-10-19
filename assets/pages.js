@@ -24,11 +24,13 @@ var categoryGrid=d.querySelector('#categories .grid');
 if(categoryGrid){
 var applianceCard=categoryGrid.querySelector('.card[href="home-appliances/"]'),airconCard=categoryGrid.querySelector('.card[href="aircon/"]'),purifierCard=categoryGrid.querySelector('.card[href="air-purifier/"]');
 if(applianceCard&&airconCard&&purifierCard){
-var tile=d.createElement('article'),title=d.createElement('h3'),description=d.createElement('p'),links=d.createElement('div');
+var tile=d.createElement('article'),imageLink=d.createElement('a'),title=d.createElement('h3'),titleLink=d.createElement('a'),description=d.createElement('p'),links=d.createElement('div');
 tile.className='card';title.textContent='Home Appliances';description.textContent='Fridges, washing machines, aircon and air purifiers.';
+imageLink.href='home-appliances/';imageLink.setAttribute('aria-label','View Home Appliances');imageLink.appendChild(applianceCard.querySelector('figure'));
+titleLink.href='home-appliances/';titleLink.textContent='Home Appliances';title.appendChild(titleLink);
 links.className='category-sub-links';
 [['Fridges & Washing Machines','home-appliances/'],['Aircon','aircon/'],['Air Purifier','air-purifier/']].forEach(function(item){var link=d.createElement('a');link.href=item[1];link.textContent=item[0];links.appendChild(link)});
-tile.appendChild(applianceCard.querySelector('figure'));tile.appendChild(title);tile.appendChild(description);tile.appendChild(links);
+tile.appendChild(imageLink);tile.appendChild(title);tile.appendChild(description);tile.appendChild(links);
 categoryGrid.replaceChild(tile,applianceCard);airconCard.parentNode.removeChild(airconCard);purifierCard.parentNode.removeChild(purifierCard)
 }
 var speakerCard=categoryGrid.querySelector('.card[href="speakers/"]');
