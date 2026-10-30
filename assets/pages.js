@@ -55,8 +55,8 @@ var category=categoryPage.querySelector('h1').textContent.replace(/\s+in Singapo
 function addProductGallery(name,productSlug,id){
 var section=d.createElement('section'),wrap=d.createElement('div'),head=d.createElement('div'),title=d.createElement('h2'),intro=d.createElement('p'),grid=d.createElement('div'),empty=d.createElement('p'),emptyLink=d.createElement('a');
 section.className='sec alt products';if(id)section.id=id;wrap.className='wrap';head.className='head';grid.className='grid product-grid';
-title.textContent='Products in '+name;intro.textContent='Ask us for prices and availability.';empty.className='product-empty';empty.textContent='Product photos will appear here as they are added. ';
-emptyLink.className='more';emptyLink.href='https://wa.me/6587887589?text='+encodeURIComponent('Hi WOW Lifestyle, I would like to ask about prices and availability for '+name+'.');emptyLink.target='_blank';emptyLink.rel='noopener noreferrer';emptyLink.textContent='Contact us for price';empty.appendChild(emptyLink);
+title.textContent='Products in '+name;intro.textContent='Visit our showroom for price and warranty details.';empty.className='product-empty';empty.textContent='Product photos will appear here as they are added. Visit our showroom for price and warranty details. ';
+emptyLink.className='more';emptyLink.href='https://wa.me/6587887589?text='+encodeURIComponent('Hi WOW Lifestyle, I would like to ask about prices and availability for '+name+'.');emptyLink.target='_blank';emptyLink.rel='noopener noreferrer';emptyLink.textContent='Make an appointment to visit';empty.appendChild(emptyLink);
 head.appendChild(title);head.appendChild(intro);grid.appendChild(empty);wrap.appendChild(head);wrap.appendChild(grid);section.appendChild(wrap);productParent.insertBefore(section,productAnchor);
 function loadProduct(index){
 var image=new Image();
@@ -64,7 +64,7 @@ image.onload=function(){
 var card=d.createElement('article'),figure=d.createElement('figure'),photo=d.createElement('img'),productTitle=d.createElement('h3'),price=d.createElement('p'),link=d.createElement('a');
 if(index===1&&empty.parentNode)empty.parentNode.removeChild(empty);
 card.className='product-card';photo.src=image.src;photo.alt=name+' product image '+index;photo.width=1200;photo.height=800;photo.loading='lazy';photo.decoding='async';
-productTitle.textContent='Product '+index;price.textContent='Contact us for price';
+productTitle.textContent='Product '+index;price.textContent='Visit the showroom for price and warranty details';
 link.className='more';link.href='https://wa.me/6587887589?text='+encodeURIComponent('Hi WOW Lifestyle, I would like to know the price of '+name+' product '+index+'.');link.target='_blank';link.rel='noopener noreferrer';link.textContent='Ask on WhatsApp';
 figure.appendChild(photo);card.appendChild(figure);card.appendChild(productTitle);card.appendChild(price);card.appendChild(link);grid.appendChild(card);loadProduct(index+1)
 };
