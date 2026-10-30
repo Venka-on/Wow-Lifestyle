@@ -1,6 +1,6 @@
 (function(){
 var d=document,calm=matchMedia('(prefers-reduced-motion:reduce)').matches,st=[].slice.call(d.querySelectorAll('[data-stage]'));
-var cv=d.getElementById('eye');if(!st.length||!cv||!window.THREE)return;
+var cv=d.getElementById('eye');if(calm||!st.length||!cv||!window.THREE)return;
 var hov=0,hovAt=-1,lastEl=null,lastY=scrollY,vel=0,px=0,py=0,lastMove=-1e5;
 d.addEventListener('pointerover',function(e){var el=e.target.closest&&e.target.closest('.card,.post,.btn,.nav a,.nav button');
 if(el&&el!==lastEl){lastEl=el;hovAt=performance.now();hov=el.matches('.card,.post')?2:1}else if(!el){lastEl=null;hov=0}},{passive:true});

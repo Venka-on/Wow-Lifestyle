@@ -1,0 +1,45 @@
+RewriteEngine On
+
+# Display the styled 404 document for missing requests.
+ErrorDocument 404 /404.html
+
+# Match requests that do not use HTTPS.
+RewriteCond %{HTTPS} !=on [OR]
+# Also match requests using the www hostname.
+RewriteCond %{HTTP_HOST} ^www\.wowlifestyle\.sg$ [NC]
+# Redirect either match to the HTTPS non-www host and preserve the path.
+RewriteRule ^ https://wowlifestyle.sg%{REQUEST_URI} [R=301,L,NE]
+
+# Redirect legacy category, about and contact directory URLs to their canonical .html URLs.
+RewriteRule ^(about|contact|home-furniture|carpets|curtains|lights|home-appliances|artificial-plants|wall-paintings|wall-stickers|aircon|air-purifier|speakers)/?$ /$1.html [R=301,L]
+# Redirect the directory-based blog index to its canonical .html URL.
+RewriteRule ^blog/?$ /blog.html [R=301,L]
+# Redirect directory-based article URLs to their canonical .html URLs.
+RewriteRule ^blog/(choosing-an-aircon-for-singapore-homes|curtain-fabrics-and-colours-guide|how-to-choose-a-sofa-for-hdb-living-room)/?$ /blog/$1.html [R=301,L]
+
+# Map public category/about/contact .html URLs to their existing index files.
+RewriteRule ^(about|contact|home-furniture|carpets|curtains|lights|home-appliances|artificial-plants|wall-paintings|wall-stickers|aircon|air-purifier|speakers)\.html$ $1/index.html [L]
+# Map the public blog index URL to its existing index file.
+RewriteRule ^blog\.html$ blog/index.html [L]
+# Map public article .html URLs to their existing index files.
+RewriteRule ^blog/(choosing-an-aircon-for-singapore-homes|curtain-fabrics-and-colours-guide|how-to-choose-a-sofa-for-hdb-living-room)\.html$ blog/$1/index.html [L]
+
+# Compress eligible text and asset responses when mod_deflate is available.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# Enable expiration headers only when mod_expires is available.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Cache image assets for one year.
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  # Cache stylesheets and scripts for one month.
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  # Keep HTML caching short to allow content updates to appear promptly.
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
