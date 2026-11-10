@@ -47,7 +47,7 @@ if(wallpaperCard){wallpaperCard.querySelector('h3').textContent='Wallpaper';wall
 d.querySelectorAll('.sec .wrap>*:not(.stage):not(.rv),.phead .ph>div:first-child').forEach(function(e){e.classList.add('rv')});
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08});
 d.querySelectorAll('.rv,.card,.post,.product-card').forEach(function(e){e.classList.add('rv');var siblings=e.parentNode.children,index=0;for(var i=0;i<siblings.length;i++){if(siblings[i]===e)break;if(siblings[i].classList.contains('rv'))index++}e.style.setProperty('--reveal-delay',Math.min(index,5)*80+'ms');io.observe(e)});
-var productCounts={carpets:12,'home-furniture':2,lights:12,'artificial-plants':20};
+var productCounts={carpets:12,'home-furniture':38,lights:12,'artificial-plants':20};
 var photoTrigger=null;
 d.addEventListener('click',function(e){
 var trigger=e.target.closest('.product-photo');if(!trigger)return;
