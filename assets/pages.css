@@ -82,6 +82,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);border-c
 .category-banner{width:min(38vw,460px);aspect-ratio:16/10;overflow:hidden;border-radius:20px;background:var(--line);justify-self:center}
 .category-banner img{width:100%;height:100%;object-fit:cover}
 .category-eye-anchor{position:absolute;top:clamp(24px,5vw,56px);right:clamp(24px,5vw,56px);width:0;height:0;aspect-ratio:auto}
+.hero>img[src$="hero-1.webp"]{display:none}
+.ph:has(>.category-banner img[src$="home-furniture-banner.webp"]) .category-banner,figure:has(>img[src$="home-furniture-1.webp"]),figure:has(>img[src$="home-furniture-2.webp"]){display:none}
+.ph:has(>.category-banner img[src$="home-furniture-banner.webp"]){grid-template-columns:1fr}
 .sec2{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(24px,4vw,64px);align-items:start}
 .sec2 .stage{width:clamp(130px,16vw,230px);margin-top:20px}
 .cta .stage{width:clamp(120px,14vw,190px);margin:0 auto 16px}
