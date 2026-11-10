@@ -15,30 +15,28 @@ var ball=new THREE.Mesh(new THREE.CircleGeometry(.72,64),new THREE.MeshBasicMate
 var pup=new THREE.Mesh(new THREE.CircleGeometry(.3,48),new THREE.MeshBasicMaterial({color:lin(0x121110)}));pup.position.set(.3,0,-.05);eye.add(pup);
 var hl=new THREE.Mesh(new THREE.CircleGeometry(.07,24),new THREE.MeshBasicMaterial({color:0xffffff}));hl.position.set(.09,.1,.01);pup.add(hl);
 S.add(new THREE.AmbientLight(0xffffff,.55));var k1=new THREE.DirectionalLight(0xffffff,.85);k1.position.set(300,400,500);S.add(k1);var k2=new THREE.DirectionalLight(0xffd9bf,.35);k2.position.set(-400,-200,300);S.add(k2);
-var W=0,H=0;function fit(){W=innerWidth;H=innerHeight;R.setPixelRatio(Math.min(devicePixelRatio,2));R.setSize(W,H,false);C.left=-W/2;C.right=W/2;C.top=H/2;C.bottom=-H/2;C.updateProjectionMatrix()}
+var W=0,H=0,eyeSize=0;function fit(){W=innerWidth;H=innerHeight;eyeSize=parseFloat(getComputedStyle(cv).fontSize);eye.scale.setScalar(eyeSize/3);R.setPixelRatio(Math.min(devicePixelRatio,2));R.setSize(W,H,false);C.left=-W/2;C.right=W/2;C.top=H/2;C.bottom=-H/2;C.updateProjectionMatrix()}
 fit();addEventListener('resize',fit);
 var cur=null,pp={x:0,y:0},blinkAt=3000,blinkT=-1,seen=-1,ps=1,zTop=false,ry=0;
 function frame(now){requestAnimationFrame(frame);
 var sy=scrollY,vh=innerHeight,i,P=[],S0=[];vel=vel*.8+(sy-lastY)*.2;lastY=sy;
-for(i=0;i<st.length;i++){var r=st[i].getBoundingClientRect();P.push({x:r.left+r.width/2,y:r.top+sy+r.height/2,s:Math.min(r.width,r.height)})}
+for(i=0;i<st.length;i++){var r=st[i].getBoundingClientRect();P.push({x:r.left+r.width/2,y:r.top+sy+r.height/2})}
 for(i=0;i<P.length;i++)S0.push(i?Math.max(S0[i-1]+1,P[i].y-vh/2):0);
 var j=0;while(j<P.length-1&&sy>=S0[j+1])j++;
 var a=P[j],c=P[Math.min(j+1,P.length-1)],tt=0;
 if(j<P.length-1)tt=Math.max(0,Math.min(1,(sy-S0[j])/(S0[j+1]-S0[j])));
 var e=tt*tt*(3-2*tt),dir=c.x>a.x?-1:1;
-var tg={x:a.x+(c.x-a.x)*e,y:a.y+(c.y-a.y)*e-sy,s:(a.s+(c.s-a.s)*e)*(1-.22*Math.sin(Math.PI*e))};
+var tg={x:a.x+(c.x-a.x)*e,y:a.y+(c.y-a.y)*e-sy};
 var onCard=hov===2&&lastEl&&lastEl.matches('.card,.post');
 if(onCard!==zTop){zTop=onCard;cv.style.zIndex=onCard?'30':'1'}
-if(onCard){var hr=lastEl.getBoundingClientRect();tg={x:hr.right-Math.min(52,hr.width*.2),y:hr.top+Math.min(52,hr.width*.2),s:Math.min(88,hr.width*.32)}}
-if(!cur)cur=tg;else{var f=calm?1:(onCard?.22:.14);cur.x+=(tg.x-cur.x)*f;cur.y+=(tg.y-cur.y)*f;cur.s+=(tg.s-cur.s)*f}
+if(onCard){var hr=lastEl.getBoundingClientRect();tg={x:hr.right-Math.min(52,hr.width*.2),y:hr.top+Math.min(52,hr.width*.2)}}
+if(!cur)cur=tg;else{var f=calm?1:(onCard?.22:.14);cur.x+=(tg.x-cur.x)*f;cur.y+=(tg.y-cur.y)*f}
 eye.position.set(cur.x-W/2,H/2-cur.y,0);
-var bump=calm?0:Math.max(0,1-(now-hovAt)/500);
 if(hovAt!==seen){seen=hovAt;if(!calm&&hov){blinkT=now;blinkAt=now+300}}
-eye.scale.setScalar(Math.max(1,cur.s)/3*(1+.1*Math.sin(bump*Math.PI)*(hov===2?1.3:.6)));
 var mx=calm?0:(px/W-.5),my=calm?0:(py/vh-.5);
 var rt=onCard?mx*.3:(calm?0:(j+e)*Math.PI*2)+mx*.5;ry+=(rt-ry)*(calm?1:.18);eye.rotation.y=ry;eye.rotation.x=my*.35;eye.rotation.z=dir*Math.sin(Math.PI*e)*.35;
 var tx,ty;
-if(now-lastMove<2500){var dx=px-cur.x,dy=py-cur.y,L=Math.hypot(dx,dy)||1,m=Math.min(1,L/(cur.s*.9));tx=dx/L*m;ty=-dy/L*m}
+if(now-lastMove<2500){var dx=px-cur.x,dy=py-cur.y,L=Math.hypot(dx,dy)||1,m=Math.min(1,L/(eyeSize*.9));tx=dx/L*m;ty=-dy/L*m}
 else{tx=Math.sin(now/1400)*.5;ty=Math.cos(now/1900)*.35}
 ty-=Math.max(-1,Math.min(1,vel/30))*.6;var q=Math.hypot(tx,ty);if(q>1){tx/=q;ty/=q}
 pp.x+=(tx-pp.x)*.2;pp.y+=(ty-pp.y)*.2;pup.position.set(.3+pp.x*.4,pp.y*.4,-.05);
