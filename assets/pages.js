@@ -44,41 +44,52 @@ categoryGrid.insertBefore(karaokeCard,speakerCard.nextSibling)
 var wallpaperCard=categoryGrid.querySelector('.card[href="wall-stickers/"]');
 if(wallpaperCard){wallpaperCard.querySelector('h3').textContent='Wallpaper';wallpaperCard.querySelector('p').textContent='Patterns and colours to refresh your walls.';var wallpaperImage=wallpaperCard.querySelector('img');if(wallpaperImage)wallpaperImage.alt='Wallpaper design in a living room'}
 }
-[].slice.call(d.querySelectorAll('.mi>div')).forEach(function(track){var names=['Home Furniture','Carpets','Curtains','Lights','Home Appliances','Artificial Plants','Wall Paintings','Wallpaper','Home Theater Sound System','Karaoke Sound System'];track.textContent='';names.forEach(function(name){var item=d.createElement('span');item.textContent=name;track.appendChild(item)})});
 d.querySelectorAll('.sec .wrap>*:not(.stage):not(.rv),.phead .ph>div:first-child').forEach(function(e){e.classList.add('rv')});
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08});
-d.querySelectorAll('.rv').forEach(function(e){io.observe(e)});
-var categoryPage=d.querySelector('.phead'),categoryImage=d.querySelector('.pics img'),faq=d.querySelector('.faq');
-var categoryMatch=categoryImage&&categoryImage.getAttribute('src').match(/\/images\/([^/]+)-1\.webp$/);
-if(categoryPage&&categoryMatch&&faq){
-var category=categoryPage.querySelector('h1').textContent.replace(/\s+in Singapore$/i,''),productParent=faq.closest('.sec').parentNode,productAnchor=faq.closest('.sec');
+d.querySelectorAll('.rv,.card,.post,.product-card').forEach(function(e){e.classList.add('rv');var siblings=e.parentNode.children,index=0;for(var i=0;i<siblings.length;i++){if(siblings[i]===e)break;if(siblings[i].classList.contains('rv'))index++}e.style.setProperty('--reveal-delay',Math.min(index,5)*80+'ms');io.observe(e)});
+var productCounts={carpets:12,'home-furniture':2,lights:12,'artificial-plants':20};
+var photoTrigger=null;
+d.addEventListener('click',function(e){
+var trigger=e.target.closest('.product-photo');if(!trigger)return;
+var source=trigger.querySelector('img');if(!source)return;
+var dialog=d.getElementById('product-viewer');
+if(!dialog){
+dialog=d.createElement('dialog');dialog.id='product-viewer';dialog.className='product-viewer';dialog.setAttribute('aria-label','Product image');
+var close=d.createElement('button'),image=d.createElement('img');
+close.type='button';close.className='product-viewer-close';close.setAttribute('aria-label','Close image');close.textContent='×';
+image.className='product-viewer-image';dialog.appendChild(close);dialog.appendChild(image);d.body.appendChild(dialog);
+close.addEventListener('click',function(){dialog.close()});
+dialog.addEventListener('click',function(event){if(event.target===dialog)dialog.close()});
+dialog.addEventListener('close',function(){if(photoTrigger)photoTrigger.focus()})
+}
+photoTrigger=trigger;
+var viewerImage=dialog.querySelector('.product-viewer-image');viewerImage.src=source.src;viewerImage.alt=source.alt;
+dialog.showModal()
+});
+var categoryPage=d.querySelector('.phead');
+var productSlug=decodeURIComponent(location.pathname).replace(/\/index\.html$/i,'').replace(/\/+$/,'').split('/').pop();
+if(categoryPage&&productCounts[productSlug]){
+var category=categoryPage.querySelector('h1').textContent.replace(/\s+in Singapore$/i,''),productParent=categoryPage.parentNode,productAnchor=categoryPage.nextSibling;
 function addProductGallery(name,productSlug,id){
-var section=d.createElement('section'),wrap=d.createElement('div'),head=d.createElement('div'),title=d.createElement('h2'),intro=d.createElement('p'),grid=d.createElement('div'),empty=d.createElement('p'),emptyLink=d.createElement('a');
-section.className='sec alt products';if(id)section.id=id;wrap.className='wrap';head.className='head';grid.className='grid product-grid';
-title.textContent='Products in '+name;intro.textContent='Visit our showroom for price and warranty details.';empty.className='product-empty';empty.textContent='Product photos will appear here as they are added. Visit our showroom for price and warranty details. ';
-emptyLink.className='more';emptyLink.href='https://wa.me/6587887589?text='+encodeURIComponent('Hi WOW Lifestyle, I would like to ask about prices and availability for '+name+'.');emptyLink.target='_blank';emptyLink.rel='noopener noreferrer';emptyLink.textContent='Make an appointment to visit';empty.appendChild(emptyLink);
-head.appendChild(title);head.appendChild(intro);grid.appendChild(empty);wrap.appendChild(head);wrap.appendChild(grid);section.appendChild(wrap);productParent.insertBefore(section,productAnchor);
+if(!productCounts[productSlug])return;
+var section=d.createElement('section'),wrap=d.createElement('div'),grid=d.createElement('div'),inserted=false;
+section.className='sec products';if(id)section.id=id;wrap.className='wrap';grid.className='grid product-grid';wrap.appendChild(grid);section.appendChild(wrap);
 function loadProduct(index){
+if(index>productCounts[productSlug])return;
 var image=new Image();
 image.onload=function(){
-var card=d.createElement('article'),figure=d.createElement('figure'),photo=d.createElement('img'),productTitle=d.createElement('h3'),price=d.createElement('p'),link=d.createElement('a');
-if(index===1&&empty.parentNode)empty.parentNode.removeChild(empty);
-card.className='product-card';photo.src=image.src;photo.alt=name+' product image '+index;photo.width=1200;photo.height=800;photo.loading='lazy';photo.decoding='async';
-productTitle.textContent='Product '+index;price.textContent='Visit the showroom for price and warranty details';
-link.className='more';link.href='https://wa.me/6587887589?text='+encodeURIComponent('Hi WOW Lifestyle, I would like to know the price of '+name+' product '+index+'.');link.target='_blank';link.rel='noopener noreferrer';link.textContent='Ask on WhatsApp';
-figure.appendChild(photo);card.appendChild(figure);card.appendChild(productTitle);card.appendChild(price);card.appendChild(link);grid.appendChild(card);loadProduct(index+1)
+var card=d.createElement('article'),figure=d.createElement('figure'),button=d.createElement('button'),photo=d.createElement('img');
+card.className='product-card rv';card.style.setProperty('--reveal-delay',Math.min(grid.children.length,5)*80+'ms');photo.src=image.src;photo.alt=name+' product image '+index;photo.width=1200;photo.height=800;photo.loading='lazy';photo.decoding='async';
+button.type='button';button.className='product-photo';button.setAttribute('aria-label','View larger image: '+photo.alt);button.appendChild(photo);figure.appendChild(button);card.appendChild(figure);grid.appendChild(card);
+if(!inserted){productParent.insertBefore(section,productAnchor);inserted=true}
+io.observe(card);loadProduct(index+1)
 };
 image.onerror=function(){image.onload=null;image.onerror=null};
 image.src='../images/'+productSlug+'-product-'+index+'.webp'
 }
 loadProduct(1)
 }
-if(category==='Sound Systems'){
-addProductGallery('Home Theater Sound System','home-theater-sound-system','home-theater');
-addProductGallery('Karaoke Sound System','karaoke-sound-system','karaoke')
-}else{
-addProductGallery(category,categoryMatch[1])
-}
+addProductGallery(category,productSlug)
 }
 var f=d.getElementById('appt');if(f){f.addEventListener('submit',function(e){e.preventDefault();var g=function(i){return(f.elements[i].value||'').trim()};
 var m='Hi WOW Lifestyle, I would like to make an appointment.\nName: '+g('name')+'\nPhone: '+g('phone')+'\nInterested in: '+g('cat')+'\nPreferred date: '+g('date')+'\nPreferred time: '+g('time')+(g('msg')?'\nMessage: '+g('msg'):'');
