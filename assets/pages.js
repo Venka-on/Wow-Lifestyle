@@ -93,4 +93,14 @@ addProductGallery(category,productSlug)
 }
 var f=d.getElementById('appt');if(f){f.addEventListener('submit',function(e){e.preventDefault();var g=function(i){return(f.elements[i].value||'').trim()};
 var m='Hi WOW Lifestyle, I would like to make an appointment.\nName: '+g('name')+'\nPhone: '+g('phone')+'\nInterested in: '+g('cat')+'\nPreferred date: '+g('date')+'\nPreferred time: '+g('time')+(g('msg')?'\nMessage: '+g('msg'):'');
-window.open('https://wa.me/6587887589?text='+encodeURIComponent(m),'_blank','noopener')})}})();
+window.open('https://wa.me/6587887589?text='+encodeURIComponent(m),'_blank','noopener')})}
+
+var cs=d.querySelector('.cat-slider');
+if(cs){var ct=cs.querySelector('.cat-track'),pv=cs.querySelector('.cat-prev'),nx=cs.querySelector('.cat-next');
+function step(){var c=ct.querySelector('.card');return c?c.getBoundingClientRect().width+(parseFloat(getComputedStyle(ct).gap)||0):320}
+function upd(){var m=ct.scrollWidth-ct.clientWidth;pv.disabled=ct.scrollLeft<=4;nx.disabled=ct.scrollLeft>=m-4}
+pv.addEventListener('click',function(){ct.scrollBy({left:-step(),behavior:'smooth'})});
+nx.addEventListener('click',function(){ct.scrollBy({left:step(),behavior:'smooth'})});
+ct.addEventListener('scroll',function(){requestAnimationFrame(upd)},{passive:true});
+addEventListener('resize',upd);upd()}
+})();
