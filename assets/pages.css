@@ -239,3 +239,24 @@ input,select,textarea{border-color:rgba(18,17,16,.15);border-radius:8px}
 @media(hover:none){
 .categories-sec .cat-arrow{display:none}
 }
+
+/* Mobile Categories dropdown as a small popup */
+@media(max-width:860px){
+.nav .catpanel{position:absolute;top:calc(100% + 8px);left:0;right:auto;min-width:240px;max-width:82vw;max-height:70vh;overflow-y:auto;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.14);padding:8px;z-index:60}
+.nav .catpanel a{font-size:14px;padding:7px 10px}
+.nav .catpanel .cat-group>a.cat-subcategory{font-size:13.5px;padding-left:22px}
+.nav .catpanel .cat-group{padding-bottom:6px;margin-bottom:6px}
+}
+
+/* Categories fly-out submenus */
+.catpanel .cat-group{position:relative}
+.catpanel .cat-group>a:first-child::after{content:'\2039';float:right;color:var(--muted)}
+.catpanel .cat-submenu{display:none;position:absolute;right:calc(100% + 10px);top:-9px;min-width:210px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.14);padding:8px;z-index:70}
+.catpanel .cat-submenu a{display:block;padding:7px 10px;border-radius:6px;font-size:14px;color:var(--text)}
+.catpanel .cat-submenu a:hover{background:var(--soft)}
+@media(hover:hover){.catpanel .cat-group:hover>.cat-submenu,.catpanel .cat-group:focus-within>.cat-submenu{display:block}}
+.catpanel .cat-group.sub-open>.cat-submenu{display:block}
+@media(max-width:860px){
+.catpanel .cat-submenu{position:static;box-shadow:none;border:0;border-radius:0;padding:2px 0 2px 12px;min-width:0}
+.catpanel .cat-group.sub-open>a:first-child::after{transform:rotate(-90deg)}
+}

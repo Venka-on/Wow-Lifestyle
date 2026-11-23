@@ -1,24 +1,29 @@
 (function(){var d=document,b=d.querySelector('.burger'),n=d.getElementById('nav'),t=d.querySelector('[data-cat]'),p=d.getElementById('catpanel');
 b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
-t.addEventListener('click',function(e){e.stopPropagation();var o=p.classList.toggle('open');t.setAttribute('aria-expanded',o)});
-d.addEventListener('click',function(e){if(!p.contains(e.target)){p.classList.remove('open');t.setAttribute('aria-expanded','false')}});
-d.addEventListener('keydown',function(e){if(e.key==='Escape'){p.classList.remove('open');n.classList.remove('open')}});
+t.addEventListener('click',function(e){e.stopPropagation();var o=p.classList.toggle('open');t.setAttribute('aria-expanded',o);if(!o)closeSubs()});
+d.addEventListener('click',function(e){if(!p.contains(e.target)){p.classList.remove('open');t.setAttribute('aria-expanded','false');closeSubs()}});
+d.addEventListener('keydown',function(e){if(e.key==='Escape'){p.classList.remove('open');n.classList.remove('open');closeSubs()}});
 function categoryLink(suffix){return [].slice.call(p.querySelectorAll('a')).filter(function(a){return a.getAttribute('href').slice(-suffix.length)===suffix})[0]}
+function closeSubs(){var g=p.querySelectorAll('.cat-group.sub-open');for(var i=0;i<g.length;i++){g[i].classList.remove('sub-open');var a=g[i].querySelector('a');if(a)a.setAttribute('aria-expanded','false')}}
 function groupLinks(parent,children,label){
 if(!parent||children.some(function(item){return !item[0]}))return;
 var group=d.createElement('div');group.className='cat-group';group.setAttribute('role','group');
-parent.textContent=label;group.appendChild(parent);
-children.forEach(function(item){item[0].textContent=item[1];item[0].className='cat-subcategory';group.appendChild(item[0])});
+parent.textContent=label;parent.setAttribute('aria-haspopup','true');parent.setAttribute('aria-expanded','false');group.appendChild(parent);
+var sub=d.createElement('div');sub.className='cat-submenu';
+children.forEach(function(item){item[0].textContent=item[1];item[0].className='cat-subcategory';sub.appendChild(item[0])});
+group.appendChild(sub);
 p.insertBefore(group,p.firstChild)
 }
-groupLinks(categoryLink('home-appliances/'),[[categoryLink('aircon/'),'Aircon'],[categoryLink('air-purifier/'),'Air Purifier']],'Home Appliances');
+p.addEventListener('click',function(e){var a=e.target.closest('.cat-group>a');if(!a||e.detail===0)return;var group=a.parentNode;var hov=matchMedia('(hover:hover)').matches;if(!group.classList.contains('sub-open')&&(!hov||!group.matches(':hover'))){e.preventDefault();closeSubs();group.classList.add('sub-open');a.setAttribute('aria-expanded','true')}});
 var speakerLink=categoryLink('speakers/');
 if(speakerLink){
 var theaterLink=speakerLink.cloneNode(),karaokeLink=speakerLink.cloneNode();
 theaterLink.href=speakerLink.getAttribute('href')+'#home-theater';karaokeLink.href=speakerLink.getAttribute('href')+'#karaoke';
 groupLinks(speakerLink,[[theaterLink,'Home Theater Sound System'],[karaokeLink,'Karaoke Sound System']],'Sound Systems')
 }
+groupLinks(categoryLink('home-appliances/'),[[categoryLink('aircon/'),'Aircon'],[categoryLink('air-purifier/'),'Air Purifier']],'Home Appliances');
 var wallLink=categoryLink('wall-stickers/');if(wallLink)wallLink.textContent='Wallpaper';
+['artificial-plants/','carpets/','curtains/','home-appliances/','home-furniture/','lights/','speakers/','wall-paintings/','wall-stickers/'].forEach(function(suffix){var a=categoryLink(suffix);var node=a?(a.closest('.cat-group')||a):null;if(node)p.appendChild(node)});
 var h=d.querySelector('.hdr');addEventListener('scroll',function(){h.classList.toggle('sc',scrollY>20)},{passive:true});
 var categoryGrid=d.querySelector('#categories .grid');
 if(categoryGrid){
