@@ -149,7 +149,7 @@ button.type='button';button.className='product-photo';button.setAttribute('aria-
 if(!inserted){productParent.insertBefore(section,productAnchor);inserted=true}
 io.observe(card);loadProduct(index+1)
 };
-image.onerror=function(){image.onload=null;image.onerror=null};
+image.onerror=function(){image.onload=null;image.onerror=null;loadProduct(index+1)};
 image.src='../images/'+productSlug+'-product-'+index+'.webp'
 }
 loadProduct(1)
