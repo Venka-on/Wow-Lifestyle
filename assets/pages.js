@@ -1,29 +1,89 @@
 (function(){var d=document,b=d.querySelector('.burger'),n=d.getElementById('nav'),t=d.querySelector('[data-cat]'),p=d.getElementById('catpanel');
 b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
-t.addEventListener('click',function(e){e.stopPropagation();var o=p.classList.toggle('open');t.setAttribute('aria-expanded',o);if(!o)closeSubs()});
-d.addEventListener('click',function(e){if(!p.contains(e.target)){p.classList.remove('open');t.setAttribute('aria-expanded','false');closeSubs()}});
-d.addEventListener('keydown',function(e){if(e.key==='Escape'){p.classList.remove('open');n.classList.remove('open');closeSubs()}});
+t.addEventListener('click',function(e){e.stopPropagation();var o=p.classList.toggle('open');t.setAttribute('aria-expanded',o)});
+d.addEventListener('click',function(e){if(!p.contains(e.target)){p.classList.remove('open');t.setAttribute('aria-expanded','false')}});
+d.addEventListener('keydown',function(e){if(e.key==='Escape'){p.classList.remove('open');n.classList.remove('open')}});
+/* Bezzle-style mega-menu: rebuild the Categories panel as a 2-column
+   grid of tiles (thumbnail + title + one-line description), in
+   alphabetical order, with the old fly-out sub-links as small links
+   under their parent tile. Hrefs and image paths are derived from the
+   panel links already on the page, so this works at any folder depth. */
 function categoryLink(suffix){return [].slice.call(p.querySelectorAll('a')).filter(function(a){return a.getAttribute('href').slice(-suffix.length)===suffix})[0]}
-function closeSubs(){var g=p.querySelectorAll('.cat-group.sub-open');for(var i=0;i<g.length;i++){g[i].classList.remove('sub-open');var a=g[i].querySelector('a');if(a)a.setAttribute('aria-expanded','false')}}
-function groupLinks(parent,children,label){
-if(!parent||children.some(function(item){return !item[0]}))return;
-var group=d.createElement('div');group.className='cat-group';group.setAttribute('role','group');
-parent.textContent=label;parent.setAttribute('aria-haspopup','true');parent.setAttribute('aria-expanded','false');group.appendChild(parent);
-var sub=d.createElement('div');sub.className='cat-submenu';
-children.forEach(function(item){item[0].textContent=item[1];item[0].className='cat-subcategory';sub.appendChild(item[0])});
-group.appendChild(sub);
-p.insertBefore(group,p.firstChild)
+(function buildMegaMenu(){
+var data=[
+{suffix:'artificial-plants/',title:'Artificial Plants',desc:'Indoor greenery without the upkeep',img:'artificial-plants-1.webp'},
+{suffix:'carpets/',title:'Carpets',desc:'Rugs for living rooms and bedrooms',img:'carpets-1.webp'},
+{suffix:'curtains/',title:'Curtains',desc:'Fabrics and colours for every window',img:'curtains-1.webp'},
+{suffix:'home-appliances/',title:'Home Appliances',desc:'Fridges, washing machines, aircon and air purifiers.',img:'home-appliances-1.webp',subs:[{suffix:'aircon/',label:'Aircon'},{suffix:'air-purifier/',label:'Air Purifier'}]},
+{suffix:'home-furniture/',title:'Home Furniture',desc:'Sofas, beds, tables, wardrobes',img:'home-furniture-1.webp'},
+{suffix:'lights/',title:'Lights',desc:'Track, decorative and LED lighting',img:'lights-1.webp'},
+{suffix:'speakers/',title:'Sound Systems',desc:'Sound for living rooms and bedrooms',img:'speakers-1.webp',subs:[{suffix:'speakers/',anchor:'#home-theater',label:'Home Theater Sound System'},{suffix:'speakers/',anchor:'#karaoke',label:'Karaoke Sound System'}]},
+{suffix:'wall-paintings/',title:'Wall Paintings',desc:'Wall art for living rooms and bedrooms',img:'wall-paintings-1.webp'},
+{suffix:'wall-stickers/',title:'Wallpaper',desc:'Patterns and colours to refresh your walls.',img:'wall-stickers-1.webp'}
+];
+var frag=d.createDocumentFragment();
+data.forEach(function(item){
+var link=categoryLink(item.suffix);if(!link)return;
+var prefix=link.getAttribute('href').replace(/[^/]+\/$/,'');
+var tile=d.createElement('div');tile.className='mega-item';
+var main=d.createElement('a');main.className='mega-main';main.href=link.getAttribute('href');
+var thumb=d.createElement('span');thumb.className='mega-thumb';
+var photo=d.createElement('img');photo.src=prefix+'images/'+item.img;photo.alt='';photo.loading='lazy';photo.decoding='async';
+thumb.appendChild(photo);main.appendChild(thumb);
+var text=d.createElement('span');text.className='mega-text';
+var title=d.createElement('span');title.className='mega-title';title.textContent=item.title;
+var desc=d.createElement('span');desc.className='mega-desc';desc.textContent=item.desc;
+text.appendChild(title);text.appendChild(desc);main.appendChild(text);
+tile.appendChild(main);
+if(item.subs){
+var subs=d.createElement('div');subs.className='mega-subs';
+item.subs.forEach(function(s){
+var sl=categoryLink(s.suffix);if(!sl)return;
+var a=d.createElement('a');a.href=sl.getAttribute('href')+(s.anchor||'');a.textContent=s.label;subs.appendChild(a);
+});
+if(subs.childNodes.length)tile.appendChild(subs);
 }
-p.addEventListener('click',function(e){var a=e.target.closest('.cat-group>a');if(!a||e.detail===0)return;var group=a.parentNode;var hov=matchMedia('(hover:hover)').matches;if(!group.classList.contains('sub-open')&&(!hov||!group.matches(':hover'))){e.preventDefault();closeSubs();group.classList.add('sub-open');a.setAttribute('aria-expanded','true')}});
-var speakerLink=categoryLink('speakers/');
-if(speakerLink){
-var theaterLink=speakerLink.cloneNode(),karaokeLink=speakerLink.cloneNode();
-theaterLink.href=speakerLink.getAttribute('href')+'#home-theater';karaokeLink.href=speakerLink.getAttribute('href')+'#karaoke';
-groupLinks(speakerLink,[[theaterLink,'Home Theater Sound System'],[karaokeLink,'Karaoke Sound System']],'Sound Systems')
+frag.appendChild(tile);
+});
+p.textContent='';p.appendChild(frag);
+p.setAttribute('role','menu');
+/* Start fetching the tile thumbnails on hover/focus intent, so the
+   first open does not flash empty tiles while the largest image loads. */
+var thumbsPreloaded=false;
+function preloadThumbs(){if(thumbsPreloaded)return;thumbsPreloaded=true;var imgs=p.querySelectorAll('.mega-thumb img');for(var i=0;i<imgs.length;i++){imgs[i].loading='eager'}}
+t.addEventListener('mouseenter',preloadThumbs);
+t.addEventListener('focus',preloadThumbs);
+})();
+
+/* Bezzle-style pill nav: wrap the text links in a pill container with a
+   sliding highlight. If measuring fails, the pill simply never appears
+   and the CSS hover background is the fallback. */
+(function pillNav(){
+var btn=n.querySelector('.btn');
+var wrap=d.createElement('div');wrap.className='nav-links';
+var kids=[];for(var i=0;i<n.childNodes.length;i++){var c=n.childNodes[i];if(c.nodeType===1&&c!==btn)kids.push(c)}
+kids.forEach(function(c){wrap.appendChild(c)});
+n.insertBefore(wrap,btn||null);
+var pill=d.createElement('i');pill.className='nav-pill';pill.setAttribute('aria-hidden','true');wrap.appendChild(pill);
+var hovered=null;
+function current(){return wrap.querySelector('a[aria-current]')}
+function move(target){
+try{
+if(!target){pill.style.opacity='0';return}
+var r=target.getBoundingClientRect(),w=wrap.getBoundingClientRect();
+pill.style.left=(r.left-w.left)+'px';pill.style.width=r.width+'px';pill.style.opacity='1';
+wrap.classList.add('has-pill');
+}catch(e){/* CSS hover fallback */}
 }
-groupLinks(categoryLink('home-appliances/'),[[categoryLink('aircon/'),'Aircon'],[categoryLink('air-purifier/'),'Air Purifier']],'Home Appliances');
-var wallLink=categoryLink('wall-stickers/');if(wallLink)wallLink.textContent='Wallpaper';
-['artificial-plants/','carpets/','curtains/','home-appliances/','home-furniture/','lights/','speakers/','wall-paintings/','wall-stickers/'].forEach(function(suffix){var a=categoryLink(suffix);var node=a?(a.closest('.cat-group')||a):null;if(node)p.appendChild(node)});
+function navItem(el){var a=el.closest?el.closest('a,button'):null;if(!a)return null;if(a.parentNode===wrap||a.classList.contains('navlink'))return a;return null}
+wrap.addEventListener('mouseover',function(e){var a=navItem(e.target);if(a){hovered=a;move(a)}});
+wrap.addEventListener('mouseleave',function(){hovered=null;move(current())});
+wrap.addEventListener('focusin',function(e){var a=navItem(e.target);if(a)move(a)});
+wrap.addEventListener('focusout',function(){move(hovered||current())});
+addEventListener('resize',function(){move(hovered||current())});
+if(d.fonts&&d.fonts.ready)d.fonts.ready.then(function(){move(hovered||current())});
+move(current());
+})();
 var h=d.querySelector('.hdr');addEventListener('scroll',function(){h.classList.toggle('sc',scrollY>20)},{passive:true});
 var categoryGrid=d.querySelector('#categories .grid');
 if(categoryGrid){
@@ -52,7 +112,7 @@ if(wallpaperCard){wallpaperCard.querySelector('h3').textContent='Wallpaper';wall
 d.querySelectorAll('.sec .wrap>*:not(.stage):not(.rv),.phead .ph>div:first-child').forEach(function(e){e.classList.add('rv')});
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08});
 d.querySelectorAll('.rv,.card,.post,.product-card').forEach(function(e){e.classList.add('rv');var siblings=e.parentNode.children,index=0;for(var i=0;i<siblings.length;i++){if(siblings[i]===e)break;if(siblings[i].classList.contains('rv'))index++}e.style.setProperty('--reveal-delay',Math.min(index,5)*80+'ms');io.observe(e)});
-var productCounts={carpets:12,'home-furniture':36,lights:12,'artificial-plants':20};
+var productCounts={carpets:12,'home-furniture':36,lights:12,'artificial-plants':20,'wall-paintings':16};
 var photoTrigger=null;
 d.addEventListener('click',function(e){
 var trigger=e.target.closest('.product-photo');if(!trigger)return;

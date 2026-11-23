@@ -247,16 +247,91 @@ input,select,textarea{border-color:rgba(18,17,16,.15);border-radius:8px}
 .nav .catpanel .cat-group>a.cat-subcategory{font-size:13.5px;padding-left:22px}
 .nav .catpanel .cat-group{padding-bottom:6px;margin-bottom:6px}
 }
+/* ================================================================
+   Bezzle-style restyle — LOCAL PREVIEW ONLY, not pushed.
+   Tokens from bezzle.ch: page #f0ede7, panel #f6f4ef, card #fcfbf8,
+   well #e5e1d9, ink #1c1b19, hairline ink at 9%, warm shadow
+   rgb(58 50 38). WOW branding kept: logo, terracotta #C2581F,
+   dark hero with the eye graphic, all content unchanged.
+   ================================================================ */
+:root{
+  --ink:#1c1b19;
+  --soft:#f6f4ef;
+  --line:rgba(28,27,25,.09);
+  --text:#2b2825;
+  --muted:#6f6a62;
+  --card:#fcfbf8;
+  --well:#e5e1d9;
+  --r:16px;
+  --shadow-lg:0 18px 44px rgba(58,50,38,.2),0 2px 6px rgba(58,50,38,.1),0 0 0 .5px rgba(28,27,25,.09);
+  --shadow-md:0 12px 30px rgba(58,50,38,.14),0 2px 6px rgba(58,50,38,.08),0 0 0 .5px rgba(28,27,25,.09);
+}
+body{background:#f0ede7}
 
-/* Categories fly-out submenus */
-.catpanel .cat-group{position:relative}
-.catpanel .cat-group>a:first-child::after{content:'\2039';float:right;color:var(--muted)}
-.catpanel .cat-submenu{display:none;position:absolute;right:calc(100% + 10px);top:-9px;min-width:210px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.14);padding:8px;z-index:70}
-.catpanel .cat-submenu a{display:block;padding:7px 10px;border-radius:6px;font-size:14px;color:var(--text)}
-.catpanel .cat-submenu a:hover{background:var(--soft)}
-@media(hover:hover){.catpanel .cat-group:hover>.cat-submenu,.catpanel .cat-group:focus-within>.cat-submenu{display:block}}
-.catpanel .cat-group.sub-open>.cat-submenu{display:block}
+/* Serif headlines site-wide (DM Serif Display, already loaded) */
+h1,h2,h3{font-family:'DM Serif Display',Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.015em}
+.card h3,.post h3,.product-card h3{font-family:'DM Serif Display',Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.015em}
+.categories-sec .head h2,.categories-sec .card h3{font-family:'DM Serif Display',Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.015em}
+
+/* The logo file has a white background baked in; multiply blends it
+   into the warm bar/footer so no white box shows. */
+.brand img{mix-blend-mode:multiply}
+
+/* Floating header bar */
+.hdr{position:sticky;top:10px;width:min(1200px,calc(100% - 24px));margin:10px auto 0;background:rgba(252,251,248,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:0;border-radius:16px;box-shadow:0 10px 30px rgba(58,50,38,.12),0 0 0 .5px rgba(28,27,25,.09)}
+.hdr .wrap{width:calc(100% - 28px)}
+.hdr.sc{box-shadow:0 14px 34px rgba(58,50,38,.16),0 0 0 .5px rgba(28,27,25,.09)}
+
+/* Pill nav with sliding highlight (pill element is added by pages.js) */
+.nav{gap:10px}
+.nav-links{position:relative;display:flex;align-items:center;gap:2px;padding:3px;border-radius:12px;background:var(--well);box-shadow:inset 0 1px 1.5px rgba(58,50,38,.18),0 1px 0 rgba(255,255,255,.75)}
+.nav-pill{position:absolute;top:3px;bottom:3px;left:0;width:0;border-radius:9px;background:var(--card);box-shadow:0 1px 2px rgba(58,50,38,.2),0 0 0 .5px rgba(28,27,25,.09);opacity:0;transition:left .3s cubic-bezier(.22,1,.36,1),width .3s cubic-bezier(.22,1,.36,1),opacity .2s;pointer-events:none;z-index:0}
+.nav-links>a:not(.btn),.nav-links .navlink{position:relative;z-index:1;display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:9px;font-size:14px;font-weight:500;color:rgba(28,27,25,.72);white-space:nowrap}
+.nav-links>a:not(.btn):hover,.nav-links .navlink:hover{color:var(--ink)}
+.nav-links>a[aria-current]{color:var(--ink)}
+.nav-links:not(.has-pill)>a:not(.btn):hover,.nav-links:not(.has-pill) .navlink:hover{background:rgba(252,251,248,.75)}
+.nav>.btn{display:inline-flex}
+.has-panel{position:static}
+
+/* Mega-menu panel: wide, 2-column tile grid */
+.catpanel{left:auto;right:0;top:calc(100% + 18px);width:660px;max-width:calc(100vw - 24px);min-width:0;background:var(--card);border:0;border-radius:18px;padding:8px;box-shadow:var(--shadow-lg);z-index:70}
+.catpanel.open{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.catpanel .mega-item{border-radius:12px;padding:10px;transition:background .2s}
+.catpanel .mega-item:hover{background:rgba(28,27,25,.05)}
+.catpanel .mega-main{display:flex;align-items:flex-start;gap:12px;padding:0;border-radius:12px}
+.catpanel .mega-main:hover{background:transparent}
+.catpanel .mega-thumb{flex:none;width:56px;height:56px;border-radius:10px;overflow:hidden;background:var(--well)}
+.catpanel .mega-thumb img{width:100%;height:100%;object-fit:cover}
+.catpanel .mega-text{min-width:0}
+.catpanel .mega-title{display:block;font-size:14px;font-weight:600;color:var(--ink);line-height:1.3}
+.catpanel .mega-desc{display:block;margin-top:2px;font-size:12.5px;color:var(--muted);line-height:1.45}
+.catpanel .mega-subs{display:flex;flex-wrap:wrap;gap:2px 12px;margin:6px 0 0 68px}
+.catpanel .mega-subs a{display:inline;padding:0;font-size:12.5px;font-weight:500;color:var(--accent)}
+.catpanel .mega-subs a:hover{background:transparent;text-decoration:underline}
+
+/* Cards, buttons, forms, footer */
+.card figure,.post figure,.pics figure,.product-card figure{border-radius:18px}
+.products{background:var(--card)}
+.btn{box-shadow:0 1px 2px rgba(58,50,38,.14)}
+input,select,textarea{border-radius:12px;border-color:rgba(28,27,25,.15);background:var(--card)}
+.ftr{border-top:1px solid var(--line)}
+.categories-sec .cat-arrow{background:var(--card);border-color:var(--line)}
+.product-viewer{background:var(--card)}
+
+/* Mobile: floating header bar stays; nav becomes a floating card panel;
+   mega-menu becomes a single-column list of tiles inside it. */
 @media(max-width:860px){
-.catpanel .cat-submenu{position:static;box-shadow:none;border:0;border-radius:0;padding:2px 0 2px 12px;min-width:0}
-.catpanel .cat-group.sub-open>a:first-child::after{transform:rotate(-90deg)}
+.hdr{top:8px;width:calc(100% - 16px);margin-top:8px}
+.hdr .wrap{width:calc(100% - 20px)}
+.nav{top:calc(100% + 10px);left:8px;right:8px;max-height:calc(100svh - 100px);overflow-y:auto;padding:10px;gap:2px;background:var(--card);border:0;border-radius:18px;box-shadow:var(--shadow-lg);flex-direction:column;align-items:stretch}
+.nav-links{display:contents}
+.nav-pill{display:none}
+.nav-links>a:not(.btn),.nav-links .navlink{height:auto;padding:11px 12px;font-size:16px}
+.nav>.btn{margin-top:6px;justify-content:center}
+.nav .catpanel{position:static;left:auto;right:auto;top:auto;width:auto;min-width:0;max-width:none;max-height:none;overflow:visible;box-shadow:none;border:0;border-radius:0;background:transparent;padding:2px 0 4px;z-index:auto}
+.nav .catpanel.open{display:grid;grid-template-columns:1fr;gap:2px}
+.nav .catpanel .mega-main{padding:0}
+.nav .catpanel .mega-subs a{padding:0;font-size:12.5px}
+.nav .catpanel .mega-item{background:rgba(28,27,25,.03);padding:8px}
+.nav .catpanel .mega-thumb{width:48px;height:48px}
 }
