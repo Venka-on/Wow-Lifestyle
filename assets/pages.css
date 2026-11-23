@@ -278,9 +278,9 @@ h1,h2,h3{font-family:'DM Serif Display',Georgia,'Times New Roman',serif;font-wei
 .brand img{mix-blend-mode:multiply}
 
 /* Floating header bar */
-.hdr{position:sticky;top:10px;width:min(1200px,calc(100% - 24px));margin:10px auto 0;background:rgba(252,251,248,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:0;border-radius:16px;box-shadow:0 10px 30px rgba(58,50,38,.12),0 0 0 .5px rgba(28,27,25,.09)}
+.hdr{position:sticky;top:10px;width:min(1200px,calc(100% - 24px));margin:10px auto 0;background:rgba(252,251,248,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:0;border-radius:16px;box-shadow:0 10px 30px rgba(58,50,38,.12)}
 .hdr .wrap{width:calc(100% - 28px)}
-.hdr.sc{box-shadow:0 14px 34px rgba(58,50,38,.16),0 0 0 .5px rgba(28,27,25,.09)}
+.hdr.sc{box-shadow:0 14px 34px rgba(58,50,38,.16)}
 
 /* Pill nav with sliding highlight (pill element is added by pages.js) */
 .nav{gap:10px}
