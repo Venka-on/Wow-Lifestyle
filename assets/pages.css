@@ -284,8 +284,8 @@ h1,h2,h3{font-family:'DM Serif Display',Georgia,'Times New Roman',serif;font-wei
 
 /* Pill nav with sliding highlight (pill element is added by pages.js) */
 .nav{gap:10px}
-.nav-links{position:relative;display:flex;align-items:center;gap:2px;padding:3px;border-radius:12px;background:var(--well);box-shadow:inset 0 1px 1.5px rgba(58,50,38,.18),0 1px 0 rgba(255,255,255,.75)}
-.nav-pill{position:absolute;top:3px;bottom:3px;left:0;width:0;border-radius:9px;background:var(--card);box-shadow:0 1px 2px rgba(58,50,38,.2),0 0 0 .5px rgba(28,27,25,.09);opacity:0;transition:left .3s cubic-bezier(.22,1,.36,1),width .3s cubic-bezier(.22,1,.36,1),opacity .2s;pointer-events:none;z-index:0}
+.nav-links{position:relative;display:flex;align-items:center;gap:2px;padding:3px;border-radius:12px;background:var(--well)}
+.nav-pill{position:absolute;top:3px;bottom:3px;left:0;width:0;border-radius:9px;background:var(--card);box-shadow:0 1px 2px rgba(58,50,38,.2);opacity:0;transition:left .3s cubic-bezier(.22,1,.36,1),width .3s cubic-bezier(.22,1,.36,1),opacity .2s;pointer-events:none;z-index:0}
 .nav-links>a:not(.btn),.nav-links .navlink{position:relative;z-index:1;display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:9px;font-size:14px;font-weight:500;color:rgba(28,27,25,.72);white-space:nowrap}
 .nav-links>a:not(.btn):hover,.nav-links .navlink:hover{color:var(--ink)}
 .nav-links>a[aria-current]{color:var(--ink)}
