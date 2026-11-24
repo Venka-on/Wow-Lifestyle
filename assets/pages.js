@@ -22,7 +22,7 @@ var data=[
 {suffix:'lights/',title:'Lights',desc:'Track, decorative and LED lighting',img:'lights-product-1.webp'},
 {suffix:'relaxing-chair/',title:'Relaxing Chair',desc:'Rocking, lounge and accent chairs',img:'relaxing-chair-1.webp'},
 {suffix:'solid-wood-bed/',title:'Solid Wood Bed',desc:'Solid wood beds, some with storage',img:'solid-wood-bed-1.webp'},
-{suffix:'wall-paintings/',title:'Wall Paintings',desc:'Wall art for living rooms and bedrooms',img:'wall-paintings-product-1.webp'},
+{suffix:'wall-paintings/',title:'Wall Paintings',desc:'Wall art for living rooms and bedrooms',img:'wall-paintings-product-9.webp'},
 {suffix:'wall-stickers/',title:'Wallpaper',desc:'Patterns and colours to refresh your walls.',img:''}
 ];
 var frag=d.createDocumentFragment();
