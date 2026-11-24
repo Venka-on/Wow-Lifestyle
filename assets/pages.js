@@ -11,10 +11,10 @@ d.addEventListener('keydown',function(e){if(e.key==='Escape'){p.classList.remove
 function categoryLink(suffix){return [].slice.call(p.querySelectorAll('a')).filter(function(a){return a.getAttribute('href').slice(-suffix.length)===suffix})[0]}
 (function buildMegaMenu(){
 var data=[
-{suffix:'air-purifier/',title:'Air Purifier',desc:'Midea air purifiers',img:''},
+{suffix:'air-purifier/',title:'Air Purifier',desc:'Midea air purifiers',img:'air-purifier-card.webp'},
 {suffix:'artificial-plants/',title:'Artificial Plants',desc:'Indoor greenery without the upkeep',img:'artificial-plants-product-1.webp'},
 {suffix:'carpets/',title:'Carpets',desc:'Rugs for living rooms and bedrooms',img:'carpets-product-1.webp'},
-{suffix:'curtains/',title:'Curtains',desc:'Fabrics and colours for every window',img:''},
+{suffix:'curtains/',title:'Curtains',desc:'Fabrics and colours for every window',img:'curtains-card.webp'},
 {suffix:'dining-table-chairs/',title:'Dining Table & Chairs',desc:'Round and oval tables with chairs for two to eight',img:'dining-table-chairs-1.webp'},
 {suffix:'functional-sofa/',title:'Functional Sofa',desc:'Sofas with storage, pull-out beds and headrests',img:'functional-sofa-1.webp'},
 {suffix:'high-back-chair/',title:'High Back Chair',desc:'High back bar stools and counter chairs',img:'high-back-chair-1.webp'},
@@ -23,7 +23,7 @@ var data=[
 {suffix:'relaxing-chair/',title:'Relaxing Chair',desc:'Rocking, lounge and accent chairs',img:'relaxing-chair-1.webp'},
 {suffix:'solid-wood-bed/',title:'Solid Wood Bed',desc:'Solid wood beds, some with storage',img:'solid-wood-bed-1.webp'},
 {suffix:'wall-paintings/',title:'Wall Paintings',desc:'Wall art for living rooms and bedrooms',img:'wall-paintings-product-9.webp'},
-{suffix:'wall-stickers/',title:'Wallpaper',desc:'Patterns and colours to refresh your walls.',img:''}
+{suffix:'wall-stickers/',title:'Wallpaper',desc:'Patterns and colours to refresh your walls.',img:'wallpaper-card.webp'}
 ];
 var frag=d.createDocumentFragment();
 data.forEach(function(item){
