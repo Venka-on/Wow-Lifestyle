@@ -28,7 +28,6 @@
 - [Carpets](https://wowlifestyle.sg/carpets.html): rugs for living rooms and bedrooms.
 - [Curtains](https://wowlifestyle.sg/curtains.html): fabrics and colours for every window.
 - [Lights](https://wowlifestyle.sg/lights.html): track, decorative and LED lighting.
-- [Home Appliances](https://wowlifestyle.sg/home-appliances.html): fridges, washing machines and air purifiers.
 - [Air Purifier](https://wowlifestyle.sg/air-purifier.html): air purifiers.
 - [Artificial Plants](https://wowlifestyle.sg/artificial-plants.html): indoor greenery without the upkeep.
 - [Wall Paintings](https://wowlifestyle.sg/wall-paintings.html): wall art for living rooms and bedrooms.
@@ -44,4 +43,4 @@
 - WOW Lifestyle sells through its showroom only. There is no online checkout.
 - Prices, stock and warranty details are available in the showroom only.
 - Appointments are subject to confirmation by the team.
-- Aircon and sound systems are no longer listed categories.
+- Aircon, sound systems and home appliances are no longer listed categories.

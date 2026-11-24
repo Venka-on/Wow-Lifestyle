@@ -11,13 +11,13 @@ d.addEventListener('keydown',function(e){if(e.key==='Escape'){p.classList.remove
 function categoryLink(suffix){return [].slice.call(p.querySelectorAll('a')).filter(function(a){return a.getAttribute('href').slice(-suffix.length)===suffix})[0]}
 (function buildMegaMenu(){
 var data=[
+{suffix:'air-purifier/',title:'Air Purifier',desc:'Midea air purifiers',img:''},
 {suffix:'artificial-plants/',title:'Artificial Plants',desc:'Indoor greenery without the upkeep',img:'artificial-plants-product-1.webp'},
 {suffix:'carpets/',title:'Carpets',desc:'Rugs for living rooms and bedrooms',img:'carpets-product-1.webp'},
 {suffix:'curtains/',title:'Curtains',desc:'Fabrics and colours for every window',img:''},
 {suffix:'dining-table-chairs/',title:'Dining Table & Chairs',desc:'Round and oval tables with chairs for two to eight',img:'dining-table-chairs-1.webp'},
 {suffix:'functional-sofa/',title:'Functional Sofa',desc:'Sofas with storage, pull-out beds and headrests',img:'functional-sofa-1.webp'},
 {suffix:'high-back-chair/',title:'High Back Chair',desc:'High back bar stools and counter chairs',img:'high-back-chair-1.webp'},
-{suffix:'home-appliances/',title:'Home Appliances',desc:'Fridges, washing machines and air purifiers.',img:'',subs:[{suffix:'air-purifier/',label:'Air Purifier'}]},
 {suffix:'home-furniture/',title:'Home Furniture',desc:'Sofas, beds, tables, wardrobes',img:'home-furniture-product-3.webp'},
 {suffix:'lights/',title:'Lights',desc:'Track, decorative and LED lighting',img:'lights-product-1.webp'},
 {suffix:'relaxing-chair/',title:'Relaxing Chair',desc:'Rocking, lounge and accent chairs',img:'relaxing-chair-1.webp'},
@@ -91,17 +91,6 @@ move(current());
 var h=d.querySelector('.hdr');addEventListener('scroll',function(){h.classList.toggle('sc',scrollY>20)},{passive:true});
 var categoryGrid=d.querySelector('#categories .grid');
 if(categoryGrid){
-var applianceCard=categoryGrid.querySelector('.card[href="home-appliances/"]'),purifierCard=categoryGrid.querySelector('.card[href="air-purifier/"]');
-if(applianceCard&&purifierCard){
-var tile=d.createElement('article'),imageLink=d.createElement('a'),title=d.createElement('h3'),titleLink=d.createElement('a'),description=d.createElement('p'),links=d.createElement('div');
-tile.className='card';description.textContent='Fridges, washing machines and air purifiers.';
-imageLink.href='home-appliances/';imageLink.setAttribute('aria-label','View Home Appliances');var apFig=applianceCard.querySelector('figure');if(apFig)imageLink.appendChild(apFig);
-titleLink.href='home-appliances/';titleLink.textContent='Home Appliances';title.appendChild(titleLink);
-links.className='category-sub-links';
-[['Fridges & Washing Machines','home-appliances/'],['Air Purifier','air-purifier/']].forEach(function(item){var link=d.createElement('a');link.href=item[1];link.textContent=item[0];links.appendChild(link)});
-tile.appendChild(imageLink);tile.appendChild(title);tile.appendChild(description);tile.appendChild(links);
-categoryGrid.replaceChild(tile,applianceCard);purifierCard.parentNode.removeChild(purifierCard)
-}
 var wallpaperCard=categoryGrid.querySelector('.card[href="wall-stickers/"]');
 if(wallpaperCard){wallpaperCard.querySelector('h3').textContent='Wallpaper';wallpaperCard.querySelector('p').textContent='Patterns and colours to refresh your walls.';var wallpaperImage=wallpaperCard.querySelector('img');if(wallpaperImage)wallpaperImage.alt='Wallpaper design in a living room'}
 }
