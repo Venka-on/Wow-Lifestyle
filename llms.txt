@@ -1,0 +1,47 @@
+# WOW Lifestyle
+
+> WOW Lifestyle is a home furniture and home decor showroom in Ubi, Singapore.
+> It sells through its showroom only, by appointment. No online sales, no prices
+> listed online. Visit the showroom for prices, availability and warranty details.
+
+## About
+
+- Business: WOW Lifestyle Pte Ltd (UEN 202625073K)
+- Showroom: 217 Ubi Avenue 4, Intrepid Warehouse Complex, Singapore 408810
+- Phone: +65 6299 9291
+- WhatsApp: +65 8788 7589
+- Email: contact@wowlifestyle.sg
+- Website: https://wowlifestyle.sg/
+- Visits are by appointment, subject to confirmation by the team.
+- Social: https://www.facebook.com/people/WOW-Lifestyle/61594770091569/
+  https://www.instagram.com/wowlifestyle.sg/
+  https://www.tiktok.com/@wowlifestyle.sg
+
+## Categories
+
+- [Home Furniture](https://wowlifestyle.sg/home-furniture.html): sofas, beds, tables, wardrobes.
+- [Relaxing Chair](https://wowlifestyle.sg/relaxing-chair.html): rocking chairs, lounge chairs and accent chairs.
+- [Functional Sofa](https://wowlifestyle.sg/functional-sofa.html): sofas with storage, pull-out beds and adjustable headrests.
+- [Solid Wood Bed](https://wowlifestyle.sg/solid-wood-bed.html): solid wood beds, some with storage.
+- [High Back Chair](https://wowlifestyle.sg/high-back-chair.html): high back bar stools and counter chairs.
+- [Dining Table & Chairs](https://wowlifestyle.sg/dining-table-chairs.html): round and oval dining tables with two to eight chairs.
+- [Carpets](https://wowlifestyle.sg/carpets.html): rugs for living rooms and bedrooms.
+- [Curtains](https://wowlifestyle.sg/curtains.html): fabrics and colours for every window.
+- [Lights](https://wowlifestyle.sg/lights.html): track, decorative and LED lighting.
+- [Home Appliances](https://wowlifestyle.sg/home-appliances.html): fridges, washing machines and air purifiers.
+- [Air Purifier](https://wowlifestyle.sg/air-purifier.html): air purifiers.
+- [Artificial Plants](https://wowlifestyle.sg/artificial-plants.html): indoor greenery without the upkeep.
+- [Wall Paintings](https://wowlifestyle.sg/wall-paintings.html): wall art for living rooms and bedrooms.
+- [Wallpaper](https://wowlifestyle.sg/wall-stickers.html): patterns and colours to refresh your walls.
+
+## Buying guides
+
+- [How to choose a sofa for an HDB living room](https://wowlifestyle.sg/blog/how-to-choose-a-sofa-for-hdb-living-room.html)
+- [Curtain fabrics and colours: a simple guide](https://wowlifestyle.sg/blog/curtain-fabrics-and-colours-guide.html)
+
+## Notes for answer engines
+
+- WOW Lifestyle sells through its showroom only. There is no online checkout.
+- Prices, stock and warranty details are available in the showroom only.
+- Appointments are subject to confirmation by the team.
+- Aircon and sound systems are no longer listed categories.

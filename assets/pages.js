@@ -11,15 +11,19 @@ d.addEventListener('keydown',function(e){if(e.key==='Escape'){p.classList.remove
 function categoryLink(suffix){return [].slice.call(p.querySelectorAll('a')).filter(function(a){return a.getAttribute('href').slice(-suffix.length)===suffix})[0]}
 (function buildMegaMenu(){
 var data=[
-{suffix:'artificial-plants/',title:'Artificial Plants',desc:'Indoor greenery without the upkeep',img:'artificial-plants-1.webp'},
-{suffix:'carpets/',title:'Carpets',desc:'Rugs for living rooms and bedrooms',img:'carpets-1.webp'},
-{suffix:'curtains/',title:'Curtains',desc:'Fabrics and colours for every window',img:'curtains-1.webp'},
-{suffix:'home-appliances/',title:'Home Appliances',desc:'Fridges, washing machines, aircon and air purifiers.',img:'home-appliances-1.webp',subs:[{suffix:'aircon/',label:'Aircon'},{suffix:'air-purifier/',label:'Air Purifier'}]},
-{suffix:'home-furniture/',title:'Home Furniture',desc:'Sofas, beds, tables, wardrobes',img:'home-furniture-1.webp'},
-{suffix:'lights/',title:'Lights',desc:'Track, decorative and LED lighting',img:'lights-1.webp'},
-{suffix:'speakers/',title:'Sound Systems',desc:'Sound for living rooms and bedrooms',img:'speakers-1.webp',subs:[{suffix:'speakers/',anchor:'#home-theater',label:'Home Theater Sound System'},{suffix:'speakers/',anchor:'#karaoke',label:'Karaoke Sound System'}]},
-{suffix:'wall-paintings/',title:'Wall Paintings',desc:'Wall art for living rooms and bedrooms',img:'wall-paintings-1.webp'},
-{suffix:'wall-stickers/',title:'Wallpaper',desc:'Patterns and colours to refresh your walls.',img:'wall-stickers-1.webp'}
+{suffix:'artificial-plants/',title:'Artificial Plants',desc:'Indoor greenery without the upkeep',img:'artificial-plants-product-1.webp'},
+{suffix:'carpets/',title:'Carpets',desc:'Rugs for living rooms and bedrooms',img:'carpets-product-1.webp'},
+{suffix:'curtains/',title:'Curtains',desc:'Fabrics and colours for every window',img:''},
+{suffix:'dining-table-chairs/',title:'Dining Table & Chairs',desc:'Round and oval tables with chairs for two to eight',img:'dining-table-chairs-1.webp'},
+{suffix:'functional-sofa/',title:'Functional Sofa',desc:'Sofas with storage, pull-out beds and headrests',img:'functional-sofa-1.webp'},
+{suffix:'high-back-chair/',title:'High Back Chair',desc:'High back bar stools and counter chairs',img:'high-back-chair-1.webp'},
+{suffix:'home-appliances/',title:'Home Appliances',desc:'Fridges, washing machines and air purifiers.',img:'',subs:[{suffix:'air-purifier/',label:'Air Purifier'}]},
+{suffix:'home-furniture/',title:'Home Furniture',desc:'Sofas, beds, tables, wardrobes',img:'home-furniture-product-3.webp'},
+{suffix:'lights/',title:'Lights',desc:'Track, decorative and LED lighting',img:'lights-product-1.webp'},
+{suffix:'relaxing-chair/',title:'Relaxing Chair',desc:'Rocking, lounge and accent chairs',img:'relaxing-chair-1.webp'},
+{suffix:'solid-wood-bed/',title:'Solid Wood Bed',desc:'Solid wood beds, some with storage',img:'solid-wood-bed-1.webp'},
+{suffix:'wall-paintings/',title:'Wall Paintings',desc:'Wall art for living rooms and bedrooms',img:'wall-paintings-product-1.webp'},
+{suffix:'wall-stickers/',title:'Wallpaper',desc:'Patterns and colours to refresh your walls.',img:''}
 ];
 var frag=d.createDocumentFragment();
 data.forEach(function(item){
@@ -27,9 +31,9 @@ var link=categoryLink(item.suffix);if(!link)return;
 var prefix=link.getAttribute('href').replace(/[^/]+\/$/,'');
 var tile=d.createElement('div');tile.className='mega-item';
 var main=d.createElement('a');main.className='mega-main';main.href=link.getAttribute('href');
-var thumb=d.createElement('span');thumb.className='mega-thumb';
+if(item.img){var thumb=d.createElement('span');thumb.className='mega-thumb';
 var photo=d.createElement('img');photo.src=prefix+'images/'+item.img;photo.alt='';photo.loading='lazy';photo.decoding='async';
-thumb.appendChild(photo);main.appendChild(thumb);
+thumb.appendChild(photo);main.appendChild(thumb)}
 var text=d.createElement('span');text.className='mega-text';
 var title=d.createElement('span');title.className='mega-title';title.textContent=item.title;
 var desc=d.createElement('span');desc.className='mega-desc';desc.textContent=item.desc;
@@ -87,24 +91,16 @@ move(current());
 var h=d.querySelector('.hdr');addEventListener('scroll',function(){h.classList.toggle('sc',scrollY>20)},{passive:true});
 var categoryGrid=d.querySelector('#categories .grid');
 if(categoryGrid){
-var applianceCard=categoryGrid.querySelector('.card[href="home-appliances/"]'),airconCard=categoryGrid.querySelector('.card[href="aircon/"]'),purifierCard=categoryGrid.querySelector('.card[href="air-purifier/"]');
-if(applianceCard&&airconCard&&purifierCard){
+var applianceCard=categoryGrid.querySelector('.card[href="home-appliances/"]'),purifierCard=categoryGrid.querySelector('.card[href="air-purifier/"]');
+if(applianceCard&&purifierCard){
 var tile=d.createElement('article'),imageLink=d.createElement('a'),title=d.createElement('h3'),titleLink=d.createElement('a'),description=d.createElement('p'),links=d.createElement('div');
-tile.className='card';description.textContent='Fridges, washing machines, aircon and air purifiers.';
-imageLink.href='home-appliances/';imageLink.setAttribute('aria-label','View Home Appliances');imageLink.appendChild(applianceCard.querySelector('figure'));
+tile.className='card';description.textContent='Fridges, washing machines and air purifiers.';
+imageLink.href='home-appliances/';imageLink.setAttribute('aria-label','View Home Appliances');var apFig=applianceCard.querySelector('figure');if(apFig)imageLink.appendChild(apFig);
 titleLink.href='home-appliances/';titleLink.textContent='Home Appliances';title.appendChild(titleLink);
 links.className='category-sub-links';
-[['Fridges & Washing Machines','home-appliances/'],['Aircon','aircon/'],['Air Purifier','air-purifier/']].forEach(function(item){var link=d.createElement('a');link.href=item[1];link.textContent=item[0];links.appendChild(link)});
+[['Fridges & Washing Machines','home-appliances/'],['Air Purifier','air-purifier/']].forEach(function(item){var link=d.createElement('a');link.href=item[1];link.textContent=item[0];links.appendChild(link)});
 tile.appendChild(imageLink);tile.appendChild(title);tile.appendChild(description);tile.appendChild(links);
-categoryGrid.replaceChild(tile,applianceCard);airconCard.parentNode.removeChild(airconCard);purifierCard.parentNode.removeChild(purifierCard)
-}
-var speakerCard=categoryGrid.querySelector('.card[href="speakers/"]');
-if(speakerCard){
-var karaokeCard=speakerCard.cloneNode(true),theaterTitle=speakerCard.querySelector('h3'),karaokeTitle=karaokeCard.querySelector('h3'),theaterImage=speakerCard.querySelector('img'),karaokeImage=karaokeCard.querySelector('img');
-speakerCard.href='speakers/#home-theater';theaterTitle.textContent='Home Theater Sound System';speakerCard.querySelector('p').textContent='Immersive sound for your home entertainment.';
-karaokeCard.href='speakers/#karaoke';karaokeTitle.textContent='Karaoke Sound System';karaokeCard.querySelector('p').textContent='Sound systems for singing and entertaining.';
-if(theaterImage)theaterImage.alt='Home theater sound system';if(karaokeImage){karaokeImage.src='images/speakers-2.webp';karaokeImage.alt='Karaoke sound system'}
-categoryGrid.insertBefore(karaokeCard,speakerCard.nextSibling)
+categoryGrid.replaceChild(tile,applianceCard);purifierCard.parentNode.removeChild(purifierCard)
 }
 var wallpaperCard=categoryGrid.querySelector('.card[href="wall-stickers/"]');
 if(wallpaperCard){wallpaperCard.querySelector('h3').textContent='Wallpaper';wallpaperCard.querySelector('p').textContent='Patterns and colours to refresh your walls.';var wallpaperImage=wallpaperCard.querySelector('img');if(wallpaperImage)wallpaperImage.alt='Wallpaper design in a living room'}
@@ -112,7 +108,8 @@ if(wallpaperCard){wallpaperCard.querySelector('h3').textContent='Wallpaper';wall
 d.querySelectorAll('.sec .wrap>*:not(.stage):not(.rv),.phead .ph>div:first-child').forEach(function(e){e.classList.add('rv')});
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08});
 d.querySelectorAll('.rv,.card,.post,.product-card').forEach(function(e){e.classList.add('rv');var siblings=e.parentNode.children,index=0;for(var i=0;i<siblings.length;i++){if(siblings[i]===e)break;if(siblings[i].classList.contains('rv'))index++}e.style.setProperty('--reveal-delay',Math.min(index,5)*80+'ms');io.observe(e)});
-var productCounts={carpets:12,'home-furniture':36,lights:12,'artificial-plants':20,'wall-paintings':16};
+var productCounts={carpets:12,'home-furniture':36,lights:12,'artificial-plants':20,'wall-paintings':16,'relaxing-chair':10,'functional-sofa':10,'solid-wood-bed':3,'high-back-chair':11,'dining-table-chairs':12};
+var productNames={'relaxing-chair':{1:'Wooden rocking chair with cream cushions and ottoman',2:'Wooden rocking chair with cream cushion and ottoman',3:'Wooden rocking chair with cream cushion',4:'Pebble lounge chair in black bouclé',5:'Black metal loop chair with cream bouclé cushion',6:'Pair of orange tub chairs',7:'White and wood rocking chair with ottoman',8:'Cream bouclé rocking chair with wooden frame',9:'Grey fabric swivel chair with wooden frame',10:'Wingback chair in light beige fabric'},'functional-sofa':{1:'Curved beige sectional sofa',2:'Beige L-shaped sectional sofa',3:'Dark green L-shaped sectional sofa with storage',4:'Brown leather sofa with wooden base',5:'Light grey fabric sofa with wooden base',6:'Grey fabric sofa with adjustable headrests',7:'Grey two-seater sofa with adjustable headrests',8:'Curved sectional sofa in light grey',9:'Dark green sectional sofa with chaise',10:'Grey sectional sofa with chaise and storage'},'solid-wood-bed':{1:'Light wood double bed with tall headboard',2:'Dark walnut storage bed',3:'Light wood double bed'},'high-back-chair':{1:'Pair of high back bar stools with white seats',2:'Grey fabric bar stool with wooden legs',3:'Walnut bar stool with cream bouclé seat',4:'Four high back bar stools',5:'Grey leather bar stool with dark wood legs',7:'Dark walnut high back bar stool',8:'Pair of cream bouclé bar stools',9:'Pair of dark walnut bar stools',10:'Cream fabric bar stool with walnut legs',11:'Cream leather bar stool with gold footrest'},'dining-table-chairs':{1:'Round white marble dining table with beige chairs',2:'Two-person white marble dining set',3:'Round white marble dining table with bolster-back chairs',4:'White marble dining table with six chairs',5:'Round white marble dining table with six chairs',6:'White marble dining table with beige chairs',7:'Wooden dining table with four chairs',8:'Oval dining table with four chairs',9:'Oval walnut dining table with four curved chairs',10:'Oval dining table with six black chairs',11:'Black dining table with four chairs',12:'Round black dining table with four chairs'}};
 var photoTrigger=null;
 d.addEventListener('click',function(e){
 var trigger=e.target.closest('.product-photo');if(!trigger)return;
@@ -144,7 +141,7 @@ if(index>productCounts[productSlug])return;
 var image=new Image();
 image.onload=function(){
 var card=d.createElement('article'),figure=d.createElement('figure'),button=d.createElement('button'),photo=d.createElement('img');
-card.className='product-card rv';card.style.setProperty('--reveal-delay',Math.min(grid.children.length,5)*80+'ms');photo.src=image.src;photo.alt=name+' product image '+index;photo.width=1200;photo.height=800;photo.loading='lazy';photo.decoding='async';
+card.className='product-card rv';card.style.setProperty('--reveal-delay',Math.min(grid.children.length,5)*80+'ms');photo.src=image.src;photo.alt=(productNames[productSlug]&&productNames[productSlug][index])||(name+' product image '+index);photo.width=1200;photo.height=800;photo.loading='lazy';photo.decoding='async';
 button.type='button';button.className='product-photo';button.setAttribute('aria-label','View larger image: '+photo.alt);button.appendChild(photo);figure.appendChild(button);card.appendChild(figure);grid.appendChild(card);
 if(!inserted){productParent.insertBefore(section,productAnchor);inserted=true}
 io.observe(card);loadProduct(index+1)
