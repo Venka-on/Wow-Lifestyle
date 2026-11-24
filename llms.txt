@@ -19,7 +19,6 @@
 
 ## Categories
 
-- [Home Furniture](https://wowlifestyle.sg/home-furniture.html): sofas, beds, tables, wardrobes.
 - [Relaxing Chair](https://wowlifestyle.sg/relaxing-chair.html): rocking chairs, lounge chairs and accent chairs.
 - [Functional Sofa](https://wowlifestyle.sg/functional-sofa.html): sofas with storage, pull-out beds and adjustable headrests.
 - [Solid Wood Bed](https://wowlifestyle.sg/solid-wood-bed.html): solid wood beds, some with storage.
@@ -43,4 +42,4 @@
 - WOW Lifestyle sells through its showroom only. There is no online checkout.
 - Prices, stock and warranty details are available in the showroom only.
 - Appointments are subject to confirmation by the team.
-- Aircon, sound systems and home appliances are no longer listed categories.
+- Aircon, sound systems, home appliances and home furniture are no longer listed categories.
